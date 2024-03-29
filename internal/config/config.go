@@ -11,4 +11,6 @@ type Config struct {
 	zrpc.RpcServerConf
 	DatabaseConf config.DatabaseConf
 	RedisConf    redis.RedisConf
+
+	CoreRpc zrpc.RpcClientConf
 }

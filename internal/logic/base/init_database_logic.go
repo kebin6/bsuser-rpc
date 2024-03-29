@@ -2,11 +2,15 @@ package base
 
 import (
 	"context"
+	"entgo.io/ent/dialect/sql/schema"
+	"github.com/suyuan32/simple-admin-common/enum/errorcode"
+	"github.com/suyuan32/simple-admin-common/i18n"
+	"github.com/suyuan32/simple-admin-common/msg/logmsg"
+	"github.com/zeromicro/go-zero/core/errorx"
+	"github.com/zeromicro/go-zero/core/logx"
 
 	"github.com/kebin6/bsuser-rpc/internal/svc"
 	"github.com/kebin6/bsuser-rpc/types/bsuser"
-
-	"github.com/zeromicro/go-zero/core/logx"
 )
 
 type InitDatabaseLogic struct {
@@ -24,7 +28,22 @@ func NewInitDatabaseLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Init
 }
 
 func (l *InitDatabaseLogic) InitDatabase(in *bsuser.Empty) (*bsuser.BaseResp, error) {
-	// todo: add your logic here and delete this line
+	if err := l.svcCtx.DB.Schema.Create(l.ctx, schema.WithForeignKeys(false)); err != nil {
+		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
+		return nil, errorx.NewCodeError(errorcode.Internal, err.Error())
+	}
 
-	return &bsuser.BaseResp{}, nil
+	err := l.insertApiData()
+	if err != nil {
+		return nil, err
+	}
+
+	err = l.insertMenuData()
+	if err != nil {
+		return nil, err
+	}
+
+	return &bsuser.BaseResp{
+		Msg: i18n.Success,
+	}, nil
 }

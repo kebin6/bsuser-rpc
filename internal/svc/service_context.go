@@ -3,6 +3,8 @@ package svc
 import (
 	"github.com/kebin6/bsuser-rpc/ent"
 	"github.com/kebin6/bsuser-rpc/internal/config"
+	"github.com/suyuan32/simple-admin-core/rpc/coreclient"
+	"github.com/zeromicro/go-zero/zrpc"
 
 	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/core/stores/redis"
@@ -12,6 +14,8 @@ type ServiceContext struct {
 	Config config.Config
 	DB     *ent.Client
 	Redis  *redis.Redis
+
+	CoreRpc coreclient.Core
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
@@ -22,8 +26,9 @@ func NewServiceContext(c config.Config) *ServiceContext {
 	)
 
 	return &ServiceContext{
-		Config: c,
-		DB:     db,
-		Redis:  redis.MustNewRedis(c.RedisConf),
+		Config:  c,
+		DB:      db,
+		Redis:   redis.MustNewRedis(c.RedisConf),
+		CoreRpc: coreclient.NewCore(zrpc.MustNewClient(c.CoreRpc)),
 	}
 }
