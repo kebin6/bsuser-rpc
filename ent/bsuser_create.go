@@ -68,9 +68,25 @@ func (bc *BsuserCreate) SetName(s string) *BsuserCreate {
 	return bc
 }
 
+// SetNillableName sets the "name" field if the given value is not nil.
+func (bc *BsuserCreate) SetNillableName(s *string) *BsuserCreate {
+	if s != nil {
+		bc.SetName(*s)
+	}
+	return bc
+}
+
 // SetMobile sets the "mobile" field.
 func (bc *BsuserCreate) SetMobile(s string) *BsuserCreate {
 	bc.mutation.SetMobile(s)
+	return bc
+}
+
+// SetNillableMobile sets the "mobile" field if the given value is not nil.
+func (bc *BsuserCreate) SetNillableMobile(s *string) *BsuserCreate {
+	if s != nil {
+		bc.SetMobile(*s)
+	}
 	return bc
 }
 
@@ -80,21 +96,53 @@ func (bc *BsuserCreate) SetPwd(s string) *BsuserCreate {
 	return bc
 }
 
+// SetNillablePwd sets the "pwd" field if the given value is not nil.
+func (bc *BsuserCreate) SetNillablePwd(s *string) *BsuserCreate {
+	if s != nil {
+		bc.SetPwd(*s)
+	}
+	return bc
+}
+
 // SetTotalAmount sets the "total_amount" field.
-func (bc *BsuserCreate) SetTotalAmount(s string) *BsuserCreate {
-	bc.mutation.SetTotalAmount(s)
+func (bc *BsuserCreate) SetTotalAmount(f float64) *BsuserCreate {
+	bc.mutation.SetTotalAmount(f)
+	return bc
+}
+
+// SetNillableTotalAmount sets the "total_amount" field if the given value is not nil.
+func (bc *BsuserCreate) SetNillableTotalAmount(f *float64) *BsuserCreate {
+	if f != nil {
+		bc.SetTotalAmount(*f)
+	}
 	return bc
 }
 
 // SetValidAmount sets the "valid_amount" field.
-func (bc *BsuserCreate) SetValidAmount(s string) *BsuserCreate {
-	bc.mutation.SetValidAmount(s)
+func (bc *BsuserCreate) SetValidAmount(f float64) *BsuserCreate {
+	bc.mutation.SetValidAmount(f)
+	return bc
+}
+
+// SetNillableValidAmount sets the "valid_amount" field if the given value is not nil.
+func (bc *BsuserCreate) SetNillableValidAmount(f *float64) *BsuserCreate {
+	if f != nil {
+		bc.SetValidAmount(*f)
+	}
 	return bc
 }
 
 // SetInviteCode sets the "invite_code" field.
 func (bc *BsuserCreate) SetInviteCode(s string) *BsuserCreate {
 	bc.mutation.SetInviteCode(s)
+	return bc
+}
+
+// SetNillableInviteCode sets the "invite_code" field if the given value is not nil.
+func (bc *BsuserCreate) SetNillableInviteCode(s *string) *BsuserCreate {
+	if s != nil {
+		bc.SetInviteCode(*s)
+	}
 	return bc
 }
 
@@ -199,6 +247,30 @@ func (bc *BsuserCreate) defaults() {
 		v := bsuser.DefaultStatus
 		bc.mutation.SetStatus(v)
 	}
+	if _, ok := bc.mutation.Name(); !ok {
+		v := bsuser.DefaultName
+		bc.mutation.SetName(v)
+	}
+	if _, ok := bc.mutation.Mobile(); !ok {
+		v := bsuser.DefaultMobile
+		bc.mutation.SetMobile(v)
+	}
+	if _, ok := bc.mutation.Pwd(); !ok {
+		v := bsuser.DefaultPwd
+		bc.mutation.SetPwd(v)
+	}
+	if _, ok := bc.mutation.TotalAmount(); !ok {
+		v := bsuser.DefaultTotalAmount
+		bc.mutation.SetTotalAmount(v)
+	}
+	if _, ok := bc.mutation.ValidAmount(); !ok {
+		v := bsuser.DefaultValidAmount
+		bc.mutation.SetValidAmount(v)
+	}
+	if _, ok := bc.mutation.InviteCode(); !ok {
+		v := bsuser.DefaultInviteCode
+		bc.mutation.SetInviteCode(v)
+	}
 }
 
 // check runs all checks and user-defined validators on the builder.
@@ -284,11 +356,11 @@ func (bc *BsuserCreate) createSpec() (*Bsuser, *sqlgraph.CreateSpec) {
 		_node.Pwd = value
 	}
 	if value, ok := bc.mutation.TotalAmount(); ok {
-		_spec.SetField(bsuser.FieldTotalAmount, field.TypeString, value)
+		_spec.SetField(bsuser.FieldTotalAmount, field.TypeFloat64, value)
 		_node.TotalAmount = value
 	}
 	if value, ok := bc.mutation.ValidAmount(); ok {
-		_spec.SetField(bsuser.FieldValidAmount, field.TypeString, value)
+		_spec.SetField(bsuser.FieldValidAmount, field.TypeFloat64, value)
 		_node.ValidAmount = value
 	}
 	if value, ok := bc.mutation.InviteCode(); ok {

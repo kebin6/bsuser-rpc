@@ -30,28 +30,30 @@ const (
 // BsuserMutation represents an operation that mutates the Bsuser nodes in the graph.
 type BsuserMutation struct {
 	config
-	op             Op
-	typ            string
-	id             *uint64
-	created_at     *time.Time
-	updated_at     *time.Time
-	status         *uint8
-	addstatus      *int8
-	name           *string
-	mobile         *string
-	pwd            *string
-	total_amount   *string
-	valid_amount   *string
-	invite_code    *string
-	clearedFields  map[string]struct{}
-	inviter        *uint64
-	clearedinviter bool
-	invitee        map[uint64]struct{}
-	removedinvitee map[uint64]struct{}
-	clearedinvitee bool
-	done           bool
-	oldValue       func(context.Context) (*Bsuser, error)
-	predicates     []predicate.Bsuser
+	op              Op
+	typ             string
+	id              *uint64
+	created_at      *time.Time
+	updated_at      *time.Time
+	status          *uint8
+	addstatus       *int8
+	name            *string
+	mobile          *string
+	pwd             *string
+	total_amount    *float64
+	addtotal_amount *float64
+	valid_amount    *float64
+	addvalid_amount *float64
+	invite_code     *string
+	clearedFields   map[string]struct{}
+	inviter         *uint64
+	clearedinviter  bool
+	invitee         map[uint64]struct{}
+	removedinvitee  map[uint64]struct{}
+	clearedinvitee  bool
+	done            bool
+	oldValue        func(context.Context) (*Bsuser, error)
+	predicates      []predicate.Bsuser
 }
 
 var _ ent.Mutation = (*BsuserMutation)(nil)
@@ -409,12 +411,13 @@ func (m *BsuserMutation) ResetPwd() {
 }
 
 // SetTotalAmount sets the "total_amount" field.
-func (m *BsuserMutation) SetTotalAmount(s string) {
-	m.total_amount = &s
+func (m *BsuserMutation) SetTotalAmount(f float64) {
+	m.total_amount = &f
+	m.addtotal_amount = nil
 }
 
 // TotalAmount returns the value of the "total_amount" field in the mutation.
-func (m *BsuserMutation) TotalAmount() (r string, exists bool) {
+func (m *BsuserMutation) TotalAmount() (r float64, exists bool) {
 	v := m.total_amount
 	if v == nil {
 		return
@@ -425,7 +428,7 @@ func (m *BsuserMutation) TotalAmount() (r string, exists bool) {
 // OldTotalAmount returns the old "total_amount" field's value of the Bsuser entity.
 // If the Bsuser object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *BsuserMutation) OldTotalAmount(ctx context.Context) (v string, err error) {
+func (m *BsuserMutation) OldTotalAmount(ctx context.Context) (v float64, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldTotalAmount is only allowed on UpdateOne operations")
 	}
@@ -439,18 +442,38 @@ func (m *BsuserMutation) OldTotalAmount(ctx context.Context) (v string, err erro
 	return oldValue.TotalAmount, nil
 }
 
+// AddTotalAmount adds f to the "total_amount" field.
+func (m *BsuserMutation) AddTotalAmount(f float64) {
+	if m.addtotal_amount != nil {
+		*m.addtotal_amount += f
+	} else {
+		m.addtotal_amount = &f
+	}
+}
+
+// AddedTotalAmount returns the value that was added to the "total_amount" field in this mutation.
+func (m *BsuserMutation) AddedTotalAmount() (r float64, exists bool) {
+	v := m.addtotal_amount
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
 // ResetTotalAmount resets all changes to the "total_amount" field.
 func (m *BsuserMutation) ResetTotalAmount() {
 	m.total_amount = nil
+	m.addtotal_amount = nil
 }
 
 // SetValidAmount sets the "valid_amount" field.
-func (m *BsuserMutation) SetValidAmount(s string) {
-	m.valid_amount = &s
+func (m *BsuserMutation) SetValidAmount(f float64) {
+	m.valid_amount = &f
+	m.addvalid_amount = nil
 }
 
 // ValidAmount returns the value of the "valid_amount" field in the mutation.
-func (m *BsuserMutation) ValidAmount() (r string, exists bool) {
+func (m *BsuserMutation) ValidAmount() (r float64, exists bool) {
 	v := m.valid_amount
 	if v == nil {
 		return
@@ -461,7 +484,7 @@ func (m *BsuserMutation) ValidAmount() (r string, exists bool) {
 // OldValidAmount returns the old "valid_amount" field's value of the Bsuser entity.
 // If the Bsuser object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *BsuserMutation) OldValidAmount(ctx context.Context) (v string, err error) {
+func (m *BsuserMutation) OldValidAmount(ctx context.Context) (v float64, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldValidAmount is only allowed on UpdateOne operations")
 	}
@@ -475,9 +498,28 @@ func (m *BsuserMutation) OldValidAmount(ctx context.Context) (v string, err erro
 	return oldValue.ValidAmount, nil
 }
 
+// AddValidAmount adds f to the "valid_amount" field.
+func (m *BsuserMutation) AddValidAmount(f float64) {
+	if m.addvalid_amount != nil {
+		*m.addvalid_amount += f
+	} else {
+		m.addvalid_amount = &f
+	}
+}
+
+// AddedValidAmount returns the value that was added to the "valid_amount" field in this mutation.
+func (m *BsuserMutation) AddedValidAmount() (r float64, exists bool) {
+	v := m.addvalid_amount
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
 // ResetValidAmount resets all changes to the "valid_amount" field.
 func (m *BsuserMutation) ResetValidAmount() {
 	m.valid_amount = nil
+	m.addvalid_amount = nil
 }
 
 // SetInviteCode sets the "invite_code" field.
@@ -833,14 +875,14 @@ func (m *BsuserMutation) SetField(name string, value ent.Value) error {
 		m.SetPwd(v)
 		return nil
 	case bsuser.FieldTotalAmount:
-		v, ok := value.(string)
+		v, ok := value.(float64)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetTotalAmount(v)
 		return nil
 	case bsuser.FieldValidAmount:
-		v, ok := value.(string)
+		v, ok := value.(float64)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
@@ -871,6 +913,12 @@ func (m *BsuserMutation) AddedFields() []string {
 	if m.addstatus != nil {
 		fields = append(fields, bsuser.FieldStatus)
 	}
+	if m.addtotal_amount != nil {
+		fields = append(fields, bsuser.FieldTotalAmount)
+	}
+	if m.addvalid_amount != nil {
+		fields = append(fields, bsuser.FieldValidAmount)
+	}
 	return fields
 }
 
@@ -881,6 +929,10 @@ func (m *BsuserMutation) AddedField(name string) (ent.Value, bool) {
 	switch name {
 	case bsuser.FieldStatus:
 		return m.AddedStatus()
+	case bsuser.FieldTotalAmount:
+		return m.AddedTotalAmount()
+	case bsuser.FieldValidAmount:
+		return m.AddedValidAmount()
 	}
 	return nil, false
 }
@@ -896,6 +948,20 @@ func (m *BsuserMutation) AddField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.AddStatus(v)
+		return nil
+	case bsuser.FieldTotalAmount:
+		v, ok := value.(float64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddTotalAmount(v)
+		return nil
+	case bsuser.FieldValidAmount:
+		v, ok := value.(float64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddValidAmount(v)
 		return nil
 	}
 	return fmt.Errorf("unknown Bsuser numeric field %s", name)

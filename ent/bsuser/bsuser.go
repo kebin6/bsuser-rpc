@@ -84,6 +84,18 @@ var (
 	UpdateDefaultUpdatedAt func() time.Time
 	// DefaultStatus holds the default value on creation for the "status" field.
 	DefaultStatus uint8
+	// DefaultName holds the default value on creation for the "name" field.
+	DefaultName string
+	// DefaultMobile holds the default value on creation for the "mobile" field.
+	DefaultMobile string
+	// DefaultPwd holds the default value on creation for the "pwd" field.
+	DefaultPwd string
+	// DefaultTotalAmount holds the default value on creation for the "total_amount" field.
+	DefaultTotalAmount float64
+	// DefaultValidAmount holds the default value on creation for the "valid_amount" field.
+	DefaultValidAmount float64
+	// DefaultInviteCode holds the default value on creation for the "invite_code" field.
+	DefaultInviteCode string
 )
 
 // OrderOption defines the ordering options for the Bsuser queries.

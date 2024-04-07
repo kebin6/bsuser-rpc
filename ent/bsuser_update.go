@@ -104,30 +104,44 @@ func (bu *BsuserUpdate) SetNillablePwd(s *string) *BsuserUpdate {
 }
 
 // SetTotalAmount sets the "total_amount" field.
-func (bu *BsuserUpdate) SetTotalAmount(s string) *BsuserUpdate {
-	bu.mutation.SetTotalAmount(s)
+func (bu *BsuserUpdate) SetTotalAmount(f float64) *BsuserUpdate {
+	bu.mutation.ResetTotalAmount()
+	bu.mutation.SetTotalAmount(f)
 	return bu
 }
 
 // SetNillableTotalAmount sets the "total_amount" field if the given value is not nil.
-func (bu *BsuserUpdate) SetNillableTotalAmount(s *string) *BsuserUpdate {
-	if s != nil {
-		bu.SetTotalAmount(*s)
+func (bu *BsuserUpdate) SetNillableTotalAmount(f *float64) *BsuserUpdate {
+	if f != nil {
+		bu.SetTotalAmount(*f)
 	}
+	return bu
+}
+
+// AddTotalAmount adds f to the "total_amount" field.
+func (bu *BsuserUpdate) AddTotalAmount(f float64) *BsuserUpdate {
+	bu.mutation.AddTotalAmount(f)
 	return bu
 }
 
 // SetValidAmount sets the "valid_amount" field.
-func (bu *BsuserUpdate) SetValidAmount(s string) *BsuserUpdate {
-	bu.mutation.SetValidAmount(s)
+func (bu *BsuserUpdate) SetValidAmount(f float64) *BsuserUpdate {
+	bu.mutation.ResetValidAmount()
+	bu.mutation.SetValidAmount(f)
 	return bu
 }
 
 // SetNillableValidAmount sets the "valid_amount" field if the given value is not nil.
-func (bu *BsuserUpdate) SetNillableValidAmount(s *string) *BsuserUpdate {
-	if s != nil {
-		bu.SetValidAmount(*s)
+func (bu *BsuserUpdate) SetNillableValidAmount(f *float64) *BsuserUpdate {
+	if f != nil {
+		bu.SetValidAmount(*f)
 	}
+	return bu
+}
+
+// AddValidAmount adds f to the "valid_amount" field.
+func (bu *BsuserUpdate) AddValidAmount(f float64) *BsuserUpdate {
+	bu.mutation.AddValidAmount(f)
 	return bu
 }
 
@@ -298,10 +312,16 @@ func (bu *BsuserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		_spec.SetField(bsuser.FieldPwd, field.TypeString, value)
 	}
 	if value, ok := bu.mutation.TotalAmount(); ok {
-		_spec.SetField(bsuser.FieldTotalAmount, field.TypeString, value)
+		_spec.SetField(bsuser.FieldTotalAmount, field.TypeFloat64, value)
+	}
+	if value, ok := bu.mutation.AddedTotalAmount(); ok {
+		_spec.AddField(bsuser.FieldTotalAmount, field.TypeFloat64, value)
 	}
 	if value, ok := bu.mutation.ValidAmount(); ok {
-		_spec.SetField(bsuser.FieldValidAmount, field.TypeString, value)
+		_spec.SetField(bsuser.FieldValidAmount, field.TypeFloat64, value)
+	}
+	if value, ok := bu.mutation.AddedValidAmount(); ok {
+		_spec.AddField(bsuser.FieldValidAmount, field.TypeFloat64, value)
 	}
 	if value, ok := bu.mutation.InviteCode(); ok {
 		_spec.SetField(bsuser.FieldInviteCode, field.TypeString, value)
@@ -476,30 +496,44 @@ func (buo *BsuserUpdateOne) SetNillablePwd(s *string) *BsuserUpdateOne {
 }
 
 // SetTotalAmount sets the "total_amount" field.
-func (buo *BsuserUpdateOne) SetTotalAmount(s string) *BsuserUpdateOne {
-	buo.mutation.SetTotalAmount(s)
+func (buo *BsuserUpdateOne) SetTotalAmount(f float64) *BsuserUpdateOne {
+	buo.mutation.ResetTotalAmount()
+	buo.mutation.SetTotalAmount(f)
 	return buo
 }
 
 // SetNillableTotalAmount sets the "total_amount" field if the given value is not nil.
-func (buo *BsuserUpdateOne) SetNillableTotalAmount(s *string) *BsuserUpdateOne {
-	if s != nil {
-		buo.SetTotalAmount(*s)
+func (buo *BsuserUpdateOne) SetNillableTotalAmount(f *float64) *BsuserUpdateOne {
+	if f != nil {
+		buo.SetTotalAmount(*f)
 	}
+	return buo
+}
+
+// AddTotalAmount adds f to the "total_amount" field.
+func (buo *BsuserUpdateOne) AddTotalAmount(f float64) *BsuserUpdateOne {
+	buo.mutation.AddTotalAmount(f)
 	return buo
 }
 
 // SetValidAmount sets the "valid_amount" field.
-func (buo *BsuserUpdateOne) SetValidAmount(s string) *BsuserUpdateOne {
-	buo.mutation.SetValidAmount(s)
+func (buo *BsuserUpdateOne) SetValidAmount(f float64) *BsuserUpdateOne {
+	buo.mutation.ResetValidAmount()
+	buo.mutation.SetValidAmount(f)
 	return buo
 }
 
 // SetNillableValidAmount sets the "valid_amount" field if the given value is not nil.
-func (buo *BsuserUpdateOne) SetNillableValidAmount(s *string) *BsuserUpdateOne {
-	if s != nil {
-		buo.SetValidAmount(*s)
+func (buo *BsuserUpdateOne) SetNillableValidAmount(f *float64) *BsuserUpdateOne {
+	if f != nil {
+		buo.SetValidAmount(*f)
 	}
+	return buo
+}
+
+// AddValidAmount adds f to the "valid_amount" field.
+func (buo *BsuserUpdateOne) AddValidAmount(f float64) *BsuserUpdateOne {
+	buo.mutation.AddValidAmount(f)
 	return buo
 }
 
@@ -700,10 +734,16 @@ func (buo *BsuserUpdateOne) sqlSave(ctx context.Context) (_node *Bsuser, err err
 		_spec.SetField(bsuser.FieldPwd, field.TypeString, value)
 	}
 	if value, ok := buo.mutation.TotalAmount(); ok {
-		_spec.SetField(bsuser.FieldTotalAmount, field.TypeString, value)
+		_spec.SetField(bsuser.FieldTotalAmount, field.TypeFloat64, value)
+	}
+	if value, ok := buo.mutation.AddedTotalAmount(); ok {
+		_spec.AddField(bsuser.FieldTotalAmount, field.TypeFloat64, value)
 	}
 	if value, ok := buo.mutation.ValidAmount(); ok {
-		_spec.SetField(bsuser.FieldValidAmount, field.TypeString, value)
+		_spec.SetField(bsuser.FieldValidAmount, field.TypeFloat64, value)
+	}
+	if value, ok := buo.mutation.AddedValidAmount(); ok {
+		_spec.AddField(bsuser.FieldValidAmount, field.TypeFloat64, value)
 	}
 	if value, ok := buo.mutation.InviteCode(); ok {
 		_spec.SetField(bsuser.FieldInviteCode, field.TypeString, value)

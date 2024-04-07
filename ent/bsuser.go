@@ -30,9 +30,9 @@ type Bsuser struct {
 	// 密码
 	Pwd string `json:"pwd,omitempty"`
 	// 总收益
-	TotalAmount string `json:"total_amount,omitempty"`
+	TotalAmount float64 `json:"total_amount,omitempty"`
 	// 可提现金额
-	ValidAmount string `json:"valid_amount,omitempty"`
+	ValidAmount float64 `json:"valid_amount,omitempty"`
 	// 分享码
 	InviteCode string `json:"invite_code,omitempty"`
 	// Inviter ID | 邀请人ID
@@ -79,9 +79,11 @@ func (*Bsuser) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
+		case bsuser.FieldTotalAmount, bsuser.FieldValidAmount:
+			values[i] = new(sql.NullFloat64)
 		case bsuser.FieldID, bsuser.FieldStatus, bsuser.FieldInvitedBy:
 			values[i] = new(sql.NullInt64)
-		case bsuser.FieldName, bsuser.FieldMobile, bsuser.FieldPwd, bsuser.FieldTotalAmount, bsuser.FieldValidAmount, bsuser.FieldInviteCode:
+		case bsuser.FieldName, bsuser.FieldMobile, bsuser.FieldPwd, bsuser.FieldInviteCode:
 			values[i] = new(sql.NullString)
 		case bsuser.FieldCreatedAt, bsuser.FieldUpdatedAt:
 			values[i] = new(sql.NullTime)
@@ -143,16 +145,16 @@ func (b *Bsuser) assignValues(columns []string, values []any) error {
 				b.Pwd = value.String
 			}
 		case bsuser.FieldTotalAmount:
-			if value, ok := values[i].(*sql.NullString); !ok {
+			if value, ok := values[i].(*sql.NullFloat64); !ok {
 				return fmt.Errorf("unexpected type %T for field total_amount", values[i])
 			} else if value.Valid {
-				b.TotalAmount = value.String
+				b.TotalAmount = value.Float64
 			}
 		case bsuser.FieldValidAmount:
-			if value, ok := values[i].(*sql.NullString); !ok {
+			if value, ok := values[i].(*sql.NullFloat64); !ok {
 				return fmt.Errorf("unexpected type %T for field valid_amount", values[i])
 			} else if value.Valid {
-				b.ValidAmount = value.String
+				b.ValidAmount = value.Float64
 			}
 		case bsuser.FieldInviteCode:
 			if value, ok := values[i].(*sql.NullString); !ok {
@@ -231,10 +233,10 @@ func (b *Bsuser) String() string {
 	builder.WriteString(b.Pwd)
 	builder.WriteString(", ")
 	builder.WriteString("total_amount=")
-	builder.WriteString(b.TotalAmount)
+	builder.WriteString(fmt.Sprintf("%v", b.TotalAmount))
 	builder.WriteString(", ")
 	builder.WriteString("valid_amount=")
-	builder.WriteString(b.ValidAmount)
+	builder.WriteString(fmt.Sprintf("%v", b.ValidAmount))
 	builder.WriteString(", ")
 	builder.WriteString("invite_code=")
 	builder.WriteString(b.InviteCode)

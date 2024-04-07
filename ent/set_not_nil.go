@@ -125,7 +125,7 @@ func (b *BsuserCreate) SetNotNilPwd(value *string) *BsuserCreate {
 }
 
 // set field if value's pointer is not nil.
-func (b *BsuserUpdate) SetNotNilTotalAmount(value *string) *BsuserUpdate {
+func (b *BsuserUpdate) SetNotNilTotalAmount(value *float64) *BsuserUpdate {
 	if value != nil {
 		return b.SetTotalAmount(*value)
 	}
@@ -133,7 +133,7 @@ func (b *BsuserUpdate) SetNotNilTotalAmount(value *string) *BsuserUpdate {
 }
 
 // set field if value's pointer is not nil.
-func (b *BsuserUpdateOne) SetNotNilTotalAmount(value *string) *BsuserUpdateOne {
+func (b *BsuserUpdateOne) SetNotNilTotalAmount(value *float64) *BsuserUpdateOne {
 	if value != nil {
 		return b.SetTotalAmount(*value)
 	}
@@ -141,7 +141,7 @@ func (b *BsuserUpdateOne) SetNotNilTotalAmount(value *string) *BsuserUpdateOne {
 }
 
 // set field if value's pointer is not nil.
-func (b *BsuserCreate) SetNotNilTotalAmount(value *string) *BsuserCreate {
+func (b *BsuserCreate) SetNotNilTotalAmount(value *float64) *BsuserCreate {
 	if value != nil {
 		return b.SetTotalAmount(*value)
 	}
@@ -149,7 +149,7 @@ func (b *BsuserCreate) SetNotNilTotalAmount(value *string) *BsuserCreate {
 }
 
 // set field if value's pointer is not nil.
-func (b *BsuserUpdate) SetNotNilValidAmount(value *string) *BsuserUpdate {
+func (b *BsuserUpdate) SetNotNilValidAmount(value *float64) *BsuserUpdate {
 	if value != nil {
 		return b.SetValidAmount(*value)
 	}
@@ -157,7 +157,7 @@ func (b *BsuserUpdate) SetNotNilValidAmount(value *string) *BsuserUpdate {
 }
 
 // set field if value's pointer is not nil.
-func (b *BsuserUpdateOne) SetNotNilValidAmount(value *string) *BsuserUpdateOne {
+func (b *BsuserUpdateOne) SetNotNilValidAmount(value *float64) *BsuserUpdateOne {
 	if value != nil {
 		return b.SetValidAmount(*value)
 	}
@@ -165,7 +165,7 @@ func (b *BsuserUpdateOne) SetNotNilValidAmount(value *string) *BsuserUpdateOne {
 }
 
 // set field if value's pointer is not nil.
-func (b *BsuserCreate) SetNotNilValidAmount(value *string) *BsuserCreate {
+func (b *BsuserCreate) SetNotNilValidAmount(value *float64) *BsuserCreate {
 	if value != nil {
 		return b.SetValidAmount(*value)
 	}

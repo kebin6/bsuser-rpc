@@ -86,12 +86,12 @@ func Pwd(v string) predicate.Bsuser {
 }
 
 // TotalAmount applies equality check predicate on the "total_amount" field. It's identical to TotalAmountEQ.
-func TotalAmount(v string) predicate.Bsuser {
+func TotalAmount(v float64) predicate.Bsuser {
 	return predicate.Bsuser(sql.FieldEQ(FieldTotalAmount, v))
 }
 
 // ValidAmount applies equality check predicate on the "valid_amount" field. It's identical to ValidAmountEQ.
-func ValidAmount(v string) predicate.Bsuser {
+func ValidAmount(v float64) predicate.Bsuser {
 	return predicate.Bsuser(sql.FieldEQ(FieldValidAmount, v))
 }
 
@@ -431,133 +431,83 @@ func PwdContainsFold(v string) predicate.Bsuser {
 }
 
 // TotalAmountEQ applies the EQ predicate on the "total_amount" field.
-func TotalAmountEQ(v string) predicate.Bsuser {
+func TotalAmountEQ(v float64) predicate.Bsuser {
 	return predicate.Bsuser(sql.FieldEQ(FieldTotalAmount, v))
 }
 
 // TotalAmountNEQ applies the NEQ predicate on the "total_amount" field.
-func TotalAmountNEQ(v string) predicate.Bsuser {
+func TotalAmountNEQ(v float64) predicate.Bsuser {
 	return predicate.Bsuser(sql.FieldNEQ(FieldTotalAmount, v))
 }
 
 // TotalAmountIn applies the In predicate on the "total_amount" field.
-func TotalAmountIn(vs ...string) predicate.Bsuser {
+func TotalAmountIn(vs ...float64) predicate.Bsuser {
 	return predicate.Bsuser(sql.FieldIn(FieldTotalAmount, vs...))
 }
 
 // TotalAmountNotIn applies the NotIn predicate on the "total_amount" field.
-func TotalAmountNotIn(vs ...string) predicate.Bsuser {
+func TotalAmountNotIn(vs ...float64) predicate.Bsuser {
 	return predicate.Bsuser(sql.FieldNotIn(FieldTotalAmount, vs...))
 }
 
 // TotalAmountGT applies the GT predicate on the "total_amount" field.
-func TotalAmountGT(v string) predicate.Bsuser {
+func TotalAmountGT(v float64) predicate.Bsuser {
 	return predicate.Bsuser(sql.FieldGT(FieldTotalAmount, v))
 }
 
 // TotalAmountGTE applies the GTE predicate on the "total_amount" field.
-func TotalAmountGTE(v string) predicate.Bsuser {
+func TotalAmountGTE(v float64) predicate.Bsuser {
 	return predicate.Bsuser(sql.FieldGTE(FieldTotalAmount, v))
 }
 
 // TotalAmountLT applies the LT predicate on the "total_amount" field.
-func TotalAmountLT(v string) predicate.Bsuser {
+func TotalAmountLT(v float64) predicate.Bsuser {
 	return predicate.Bsuser(sql.FieldLT(FieldTotalAmount, v))
 }
 
 // TotalAmountLTE applies the LTE predicate on the "total_amount" field.
-func TotalAmountLTE(v string) predicate.Bsuser {
+func TotalAmountLTE(v float64) predicate.Bsuser {
 	return predicate.Bsuser(sql.FieldLTE(FieldTotalAmount, v))
 }
 
-// TotalAmountContains applies the Contains predicate on the "total_amount" field.
-func TotalAmountContains(v string) predicate.Bsuser {
-	return predicate.Bsuser(sql.FieldContains(FieldTotalAmount, v))
-}
-
-// TotalAmountHasPrefix applies the HasPrefix predicate on the "total_amount" field.
-func TotalAmountHasPrefix(v string) predicate.Bsuser {
-	return predicate.Bsuser(sql.FieldHasPrefix(FieldTotalAmount, v))
-}
-
-// TotalAmountHasSuffix applies the HasSuffix predicate on the "total_amount" field.
-func TotalAmountHasSuffix(v string) predicate.Bsuser {
-	return predicate.Bsuser(sql.FieldHasSuffix(FieldTotalAmount, v))
-}
-
-// TotalAmountEqualFold applies the EqualFold predicate on the "total_amount" field.
-func TotalAmountEqualFold(v string) predicate.Bsuser {
-	return predicate.Bsuser(sql.FieldEqualFold(FieldTotalAmount, v))
-}
-
-// TotalAmountContainsFold applies the ContainsFold predicate on the "total_amount" field.
-func TotalAmountContainsFold(v string) predicate.Bsuser {
-	return predicate.Bsuser(sql.FieldContainsFold(FieldTotalAmount, v))
-}
-
 // ValidAmountEQ applies the EQ predicate on the "valid_amount" field.
-func ValidAmountEQ(v string) predicate.Bsuser {
+func ValidAmountEQ(v float64) predicate.Bsuser {
 	return predicate.Bsuser(sql.FieldEQ(FieldValidAmount, v))
 }
 
 // ValidAmountNEQ applies the NEQ predicate on the "valid_amount" field.
-func ValidAmountNEQ(v string) predicate.Bsuser {
+func ValidAmountNEQ(v float64) predicate.Bsuser {
 	return predicate.Bsuser(sql.FieldNEQ(FieldValidAmount, v))
 }
 
 // ValidAmountIn applies the In predicate on the "valid_amount" field.
-func ValidAmountIn(vs ...string) predicate.Bsuser {
+func ValidAmountIn(vs ...float64) predicate.Bsuser {
 	return predicate.Bsuser(sql.FieldIn(FieldValidAmount, vs...))
 }
 
 // ValidAmountNotIn applies the NotIn predicate on the "valid_amount" field.
-func ValidAmountNotIn(vs ...string) predicate.Bsuser {
+func ValidAmountNotIn(vs ...float64) predicate.Bsuser {
 	return predicate.Bsuser(sql.FieldNotIn(FieldValidAmount, vs...))
 }
 
 // ValidAmountGT applies the GT predicate on the "valid_amount" field.
-func ValidAmountGT(v string) predicate.Bsuser {
+func ValidAmountGT(v float64) predicate.Bsuser {
 	return predicate.Bsuser(sql.FieldGT(FieldValidAmount, v))
 }
 
 // ValidAmountGTE applies the GTE predicate on the "valid_amount" field.
-func ValidAmountGTE(v string) predicate.Bsuser {
+func ValidAmountGTE(v float64) predicate.Bsuser {
 	return predicate.Bsuser(sql.FieldGTE(FieldValidAmount, v))
 }
 
 // ValidAmountLT applies the LT predicate on the "valid_amount" field.
-func ValidAmountLT(v string) predicate.Bsuser {
+func ValidAmountLT(v float64) predicate.Bsuser {
 	return predicate.Bsuser(sql.FieldLT(FieldValidAmount, v))
 }
 
 // ValidAmountLTE applies the LTE predicate on the "valid_amount" field.
-func ValidAmountLTE(v string) predicate.Bsuser {
+func ValidAmountLTE(v float64) predicate.Bsuser {
 	return predicate.Bsuser(sql.FieldLTE(FieldValidAmount, v))
-}
-
-// ValidAmountContains applies the Contains predicate on the "valid_amount" field.
-func ValidAmountContains(v string) predicate.Bsuser {
-	return predicate.Bsuser(sql.FieldContains(FieldValidAmount, v))
-}
-
-// ValidAmountHasPrefix applies the HasPrefix predicate on the "valid_amount" field.
-func ValidAmountHasPrefix(v string) predicate.Bsuser {
-	return predicate.Bsuser(sql.FieldHasPrefix(FieldValidAmount, v))
-}
-
-// ValidAmountHasSuffix applies the HasSuffix predicate on the "valid_amount" field.
-func ValidAmountHasSuffix(v string) predicate.Bsuser {
-	return predicate.Bsuser(sql.FieldHasSuffix(FieldValidAmount, v))
-}
-
-// ValidAmountEqualFold applies the EqualFold predicate on the "valid_amount" field.
-func ValidAmountEqualFold(v string) predicate.Bsuser {
-	return predicate.Bsuser(sql.FieldEqualFold(FieldValidAmount, v))
-}
-
-// ValidAmountContainsFold applies the ContainsFold predicate on the "valid_amount" field.
-func ValidAmountContainsFold(v string) predicate.Bsuser {
-	return predicate.Bsuser(sql.FieldContainsFold(FieldValidAmount, v))
 }
 
 // InviteCodeEQ applies the EQ predicate on the "invite_code" field.

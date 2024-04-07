@@ -34,4 +34,28 @@ func init() {
 	bsuserDescStatus := bsuserMixinFields1[0].Descriptor()
 	// bsuser.DefaultStatus holds the default value on creation for the status field.
 	bsuser.DefaultStatus = bsuserDescStatus.Default.(uint8)
+	// bsuserDescName is the schema descriptor for name field.
+	bsuserDescName := bsuserFields[0].Descriptor()
+	// bsuser.DefaultName holds the default value on creation for the name field.
+	bsuser.DefaultName = bsuserDescName.Default.(string)
+	// bsuserDescMobile is the schema descriptor for mobile field.
+	bsuserDescMobile := bsuserFields[1].Descriptor()
+	// bsuser.DefaultMobile holds the default value on creation for the mobile field.
+	bsuser.DefaultMobile = bsuserDescMobile.Default.(string)
+	// bsuserDescPwd is the schema descriptor for pwd field.
+	bsuserDescPwd := bsuserFields[2].Descriptor()
+	// bsuser.DefaultPwd holds the default value on creation for the pwd field.
+	bsuser.DefaultPwd = bsuserDescPwd.Default.(string)
+	// bsuserDescTotalAmount is the schema descriptor for total_amount field.
+	bsuserDescTotalAmount := bsuserFields[3].Descriptor()
+	// bsuser.DefaultTotalAmount holds the default value on creation for the total_amount field.
+	bsuser.DefaultTotalAmount = bsuserDescTotalAmount.Default.(float64)
+	// bsuserDescValidAmount is the schema descriptor for valid_amount field.
+	bsuserDescValidAmount := bsuserFields[4].Descriptor()
+	// bsuser.DefaultValidAmount holds the default value on creation for the valid_amount field.
+	bsuser.DefaultValidAmount = bsuserDescValidAmount.Default.(float64)
+	// bsuserDescInviteCode is the schema descriptor for invite_code field.
+	bsuserDescInviteCode := bsuserFields[5].Descriptor()
+	// bsuser.DefaultInviteCode holds the default value on creation for the invite_code field.
+	bsuser.DefaultInviteCode = bsuserDescInviteCode.Default.(string)
 }

@@ -24,6 +24,16 @@ const _ = grpc.SupportPackageIsVersion7
 type BsuserClient interface {
 	// group: base
 	InitDatabase(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: base
+	Create(ctx context.Context, in *BsUserInfo, opts ...grpc.CallOption) (*BaseIDResp, error)
+	// group: base
+	Update(ctx context.Context, in *BsUserInfo, opts ...grpc.CallOption) (*BaseIDResp, error)
+	// group: base
+	GetById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BsUserInfo, error)
+	// group: base
+	GetByMobile(ctx context.Context, in *MobileReq, opts ...grpc.CallOption) (*BsUserInfo, error)
+	// group: base
+	GetList(ctx context.Context, in *BsUserListReq, opts ...grpc.CallOption) (*BsUserListResp, error)
 }
 
 type bsuserClient struct {
@@ -43,12 +53,67 @@ func (c *bsuserClient) InitDatabase(ctx context.Context, in *Empty, opts ...grpc
 	return out, nil
 }
 
+func (c *bsuserClient) Create(ctx context.Context, in *BsUserInfo, opts ...grpc.CallOption) (*BaseIDResp, error) {
+	out := new(BaseIDResp)
+	err := c.cc.Invoke(ctx, "/bsuser.Bsuser/create", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *bsuserClient) Update(ctx context.Context, in *BsUserInfo, opts ...grpc.CallOption) (*BaseIDResp, error) {
+	out := new(BaseIDResp)
+	err := c.cc.Invoke(ctx, "/bsuser.Bsuser/update", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *bsuserClient) GetById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BsUserInfo, error) {
+	out := new(BsUserInfo)
+	err := c.cc.Invoke(ctx, "/bsuser.Bsuser/getById", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *bsuserClient) GetByMobile(ctx context.Context, in *MobileReq, opts ...grpc.CallOption) (*BsUserInfo, error) {
+	out := new(BsUserInfo)
+	err := c.cc.Invoke(ctx, "/bsuser.Bsuser/getByMobile", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *bsuserClient) GetList(ctx context.Context, in *BsUserListReq, opts ...grpc.CallOption) (*BsUserListResp, error) {
+	out := new(BsUserListResp)
+	err := c.cc.Invoke(ctx, "/bsuser.Bsuser/getList", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // BsuserServer is the server API for Bsuser service.
 // All implementations must embed UnimplementedBsuserServer
 // for forward compatibility
 type BsuserServer interface {
 	// group: base
 	InitDatabase(context.Context, *Empty) (*BaseResp, error)
+	// group: base
+	Create(context.Context, *BsUserInfo) (*BaseIDResp, error)
+	// group: base
+	Update(context.Context, *BsUserInfo) (*BaseIDResp, error)
+	// group: base
+	GetById(context.Context, *IDReq) (*BsUserInfo, error)
+	// group: base
+	GetByMobile(context.Context, *MobileReq) (*BsUserInfo, error)
+	// group: base
+	GetList(context.Context, *BsUserListReq) (*BsUserListResp, error)
 	mustEmbedUnimplementedBsuserServer()
 }
 
@@ -58,6 +123,21 @@ type UnimplementedBsuserServer struct {
 
 func (UnimplementedBsuserServer) InitDatabase(context.Context, *Empty) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method InitDatabase not implemented")
+}
+func (UnimplementedBsuserServer) Create(context.Context, *BsUserInfo) (*BaseIDResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Create not implemented")
+}
+func (UnimplementedBsuserServer) Update(context.Context, *BsUserInfo) (*BaseIDResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Update not implemented")
+}
+func (UnimplementedBsuserServer) GetById(context.Context, *IDReq) (*BsUserInfo, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetById not implemented")
+}
+func (UnimplementedBsuserServer) GetByMobile(context.Context, *MobileReq) (*BsUserInfo, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetByMobile not implemented")
+}
+func (UnimplementedBsuserServer) GetList(context.Context, *BsUserListReq) (*BsUserListResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetList not implemented")
 }
 func (UnimplementedBsuserServer) mustEmbedUnimplementedBsuserServer() {}
 
@@ -90,6 +170,96 @@ func _Bsuser_InitDatabase_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Bsuser_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(BsUserInfo)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BsuserServer).Create(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/bsuser.Bsuser/create",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BsuserServer).Create(ctx, req.(*BsUserInfo))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Bsuser_Update_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(BsUserInfo)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BsuserServer).Update(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/bsuser.Bsuser/update",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BsuserServer).Update(ctx, req.(*BsUserInfo))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Bsuser_GetById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IDReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BsuserServer).GetById(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/bsuser.Bsuser/getById",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BsuserServer).GetById(ctx, req.(*IDReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Bsuser_GetByMobile_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MobileReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BsuserServer).GetByMobile(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/bsuser.Bsuser/getByMobile",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BsuserServer).GetByMobile(ctx, req.(*MobileReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Bsuser_GetList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(BsUserListReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BsuserServer).GetList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/bsuser.Bsuser/getList",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BsuserServer).GetList(ctx, req.(*BsUserListReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Bsuser_ServiceDesc is the grpc.ServiceDesc for Bsuser service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -100,6 +270,26 @@ var Bsuser_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "initDatabase",
 			Handler:    _Bsuser_InitDatabase_Handler,
+		},
+		{
+			MethodName: "create",
+			Handler:    _Bsuser_Create_Handler,
+		},
+		{
+			MethodName: "update",
+			Handler:    _Bsuser_Update_Handler,
+		},
+		{
+			MethodName: "getById",
+			Handler:    _Bsuser_GetById_Handler,
+		},
+		{
+			MethodName: "getByMobile",
+			Handler:    _Bsuser_GetByMobile_Handler,
+		},
+		{
+			MethodName: "getList",
+			Handler:    _Bsuser_GetList_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

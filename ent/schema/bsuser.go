@@ -18,12 +18,12 @@ type Bsuser struct {
 // Fields of the Bsuser.
 func (Bsuser) Fields() []ent.Field {
 	return []ent.Field{
-		field.String("name").Comment("名称"),
-		field.String("mobile").Comment("手机"),
-		field.String("pwd").Comment("密码"),
-		field.String("total_amount").Comment("总收益"),
-		field.String("valid_amount").Comment("可提现金额"),
-		field.String("invite_code").Comment("分享码"),
+		field.String("name").Default("").Comment("名称"),
+		field.String("mobile").Default("").Comment("手机"),
+		field.String("pwd").Default("").Comment("密码"),
+		field.Float("total_amount").Default(0.00).Comment("总收益"),
+		field.Float("valid_amount").Default(0.00).Comment("可提现金额"),
+		field.String("invite_code").Default("").Comment("分享码"),
 		field.Uint64("invited_by").Optional().Comment("Inviter ID | 邀请人ID"),
 	}
 }

@@ -15,12 +15,12 @@ var (
 		{Name: "created_at", Type: field.TypeTime, Comment: "Create Time | 创建日期"},
 		{Name: "updated_at", Type: field.TypeTime, Comment: "Update Time | 修改日期"},
 		{Name: "status", Type: field.TypeUint8, Nullable: true, Comment: "Status 1: normal 2: ban | 状态 1 正常 2 禁用", Default: 1},
-		{Name: "name", Type: field.TypeString, Comment: "名称"},
-		{Name: "mobile", Type: field.TypeString, Comment: "手机"},
-		{Name: "pwd", Type: field.TypeString, Comment: "密码"},
-		{Name: "total_amount", Type: field.TypeString, Comment: "总收益"},
-		{Name: "valid_amount", Type: field.TypeString, Comment: "可提现金额"},
-		{Name: "invite_code", Type: field.TypeString, Comment: "分享码"},
+		{Name: "name", Type: field.TypeString, Comment: "名称", Default: ""},
+		{Name: "mobile", Type: field.TypeString, Comment: "手机", Default: ""},
+		{Name: "pwd", Type: field.TypeString, Comment: "密码", Default: ""},
+		{Name: "total_amount", Type: field.TypeFloat64, Comment: "总收益", Default: 0},
+		{Name: "valid_amount", Type: field.TypeFloat64, Comment: "可提现金额", Default: 0},
+		{Name: "invite_code", Type: field.TypeString, Comment: "分享码", Default: ""},
 		{Name: "invited_by", Type: field.TypeUint64, Nullable: true, Comment: "Inviter ID | 邀请人ID"},
 	}
 	// BsUserTable holds the schema information for the "bs_user" table.
