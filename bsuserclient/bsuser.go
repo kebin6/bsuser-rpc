@@ -33,6 +33,7 @@ type (
 		Update(ctx context.Context, in *BsUserInfo, opts ...grpc.CallOption) (*BaseIDResp, error)
 		GetById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BsUserInfo, error)
 		GetByMobile(ctx context.Context, in *MobileReq, opts ...grpc.CallOption) (*BsUserInfo, error)
+		GetOne(ctx context.Context, in *BsUserInfo, opts ...grpc.CallOption) (*BsUserInfo, error)
 		GetList(ctx context.Context, in *BsUserListReq, opts ...grpc.CallOption) (*BsUserListResp, error)
 	}
 
@@ -70,6 +71,11 @@ func (m *defaultBsuser) GetById(ctx context.Context, in *IDReq, opts ...grpc.Cal
 func (m *defaultBsuser) GetByMobile(ctx context.Context, in *MobileReq, opts ...grpc.CallOption) (*BsUserInfo, error) {
 	client := bsuser.NewBsuserClient(m.cli.Conn())
 	return client.GetByMobile(ctx, in, opts...)
+}
+
+func (m *defaultBsuser) GetOne(ctx context.Context, in *BsUserInfo, opts ...grpc.CallOption) (*BsUserInfo, error) {
+	client := bsuser.NewBsuserClient(m.cli.Conn())
+	return client.GetOne(ctx, in, opts...)
 }
 
 func (m *defaultBsuser) GetList(ctx context.Context, in *BsUserListReq, opts ...grpc.CallOption) (*BsUserListResp, error) {

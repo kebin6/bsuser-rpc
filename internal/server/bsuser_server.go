@@ -47,6 +47,11 @@ func (s *BsuserServer) GetByMobile(ctx context.Context, in *bsuser.MobileReq) (*
 	return l.GetByMobile(in)
 }
 
+func (s *BsuserServer) GetOne(ctx context.Context, in *bsuser.BsUserInfo) (*bsuser.BsUserInfo, error) {
+	l := base.NewGetOneLogic(ctx, s.svcCtx)
+	return l.GetOne(in)
+}
+
 func (s *BsuserServer) GetList(ctx context.Context, in *bsuser.BsUserListReq) (*bsuser.BsUserListResp, error) {
 	l := base.NewGetListLogic(ctx, s.svcCtx)
 	return l.GetList(in)

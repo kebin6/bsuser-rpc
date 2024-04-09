@@ -33,6 +33,8 @@ type BsuserClient interface {
 	// group: base
 	GetByMobile(ctx context.Context, in *MobileReq, opts ...grpc.CallOption) (*BsUserInfo, error)
 	// group: base
+	GetOne(ctx context.Context, in *BsUserInfo, opts ...grpc.CallOption) (*BsUserInfo, error)
+	// group: base
 	GetList(ctx context.Context, in *BsUserListReq, opts ...grpc.CallOption) (*BsUserListResp, error)
 }
 
@@ -89,6 +91,15 @@ func (c *bsuserClient) GetByMobile(ctx context.Context, in *MobileReq, opts ...g
 	return out, nil
 }
 
+func (c *bsuserClient) GetOne(ctx context.Context, in *BsUserInfo, opts ...grpc.CallOption) (*BsUserInfo, error) {
+	out := new(BsUserInfo)
+	err := c.cc.Invoke(ctx, "/bsuser.Bsuser/getOne", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *bsuserClient) GetList(ctx context.Context, in *BsUserListReq, opts ...grpc.CallOption) (*BsUserListResp, error) {
 	out := new(BsUserListResp)
 	err := c.cc.Invoke(ctx, "/bsuser.Bsuser/getList", in, out, opts...)
@@ -113,6 +124,8 @@ type BsuserServer interface {
 	// group: base
 	GetByMobile(context.Context, *MobileReq) (*BsUserInfo, error)
 	// group: base
+	GetOne(context.Context, *BsUserInfo) (*BsUserInfo, error)
+	// group: base
 	GetList(context.Context, *BsUserListReq) (*BsUserListResp, error)
 	mustEmbedUnimplementedBsuserServer()
 }
@@ -135,6 +148,9 @@ func (UnimplementedBsuserServer) GetById(context.Context, *IDReq) (*BsUserInfo, 
 }
 func (UnimplementedBsuserServer) GetByMobile(context.Context, *MobileReq) (*BsUserInfo, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetByMobile not implemented")
+}
+func (UnimplementedBsuserServer) GetOne(context.Context, *BsUserInfo) (*BsUserInfo, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetOne not implemented")
 }
 func (UnimplementedBsuserServer) GetList(context.Context, *BsUserListReq) (*BsUserListResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetList not implemented")
@@ -242,6 +258,24 @@ func _Bsuser_GetByMobile_Handler(srv interface{}, ctx context.Context, dec func(
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Bsuser_GetOne_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(BsUserInfo)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BsuserServer).GetOne(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/bsuser.Bsuser/getOne",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BsuserServer).GetOne(ctx, req.(*BsUserInfo))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Bsuser_GetList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(BsUserListReq)
 	if err := dec(in); err != nil {
@@ -286,6 +320,10 @@ var Bsuser_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "getByMobile",
 			Handler:    _Bsuser_GetByMobile_Handler,
+		},
+		{
+			MethodName: "getOne",
+			Handler:    _Bsuser_GetOne_Handler,
 		},
 		{
 			MethodName: "getList",

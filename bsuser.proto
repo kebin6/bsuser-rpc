@@ -84,5 +84,7 @@ service Bsuser {
   // group: base
   rpc getByMobile(MobileReq) returns (BsUserInfo);
   // group: base
+  rpc getOne(BsUserInfo) returns (BsUserInfo);
+  // group: base
   rpc getList(BsUserListReq) returns (BsUserListResp);
 }

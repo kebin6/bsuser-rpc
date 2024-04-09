@@ -2,10 +2,10 @@ package base
 
 import (
 	"context"
+	"github.com/kebin6/bsuser-rpc/ent"
 	bsUserEnt "github.com/kebin6/bsuser-rpc/ent/bsuser"
 	"github.com/kebin6/bsuser-rpc/internal/utils/dberrorhandler"
 	"github.com/suyuan32/simple-admin-common/utils/pointy"
-	"github.com/suyuan32/simple-admin-core/rpc/ent"
 
 	"github.com/kebin6/bsuser-rpc/internal/svc"
 	"github.com/kebin6/bsuser-rpc/types/bsuser"
@@ -13,22 +13,32 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
-type GetByMobileLogic struct {
+type GetOneLogic struct {
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
 	logx.Logger
 }
 
-func NewGetByMobileLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetByMobileLogic {
-	return &GetByMobileLogic{
+func NewGetOneLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetOneLogic {
+	return &GetOneLogic{
 		ctx:    ctx,
 		svcCtx: svcCtx,
 		Logger: logx.WithContext(ctx),
 	}
 }
 
-func (l *GetByMobileLogic) GetByMobile(in *bsuser.MobileReq) (*bsuser.BsUserInfo, error) {
-	info, err := l.svcCtx.DB.Bsuser.Query().Where(bsUserEnt.MobileEQ(in.Mobile)).First(l.ctx)
+func (l *GetOneLogic) GetOne(in *bsuser.BsUserInfo) (*bsuser.BsUserInfo, error) {
+	query := l.svcCtx.DB.Bsuser.Query()
+	if in.Id != nil {
+		query.Where(bsUserEnt.IDEQ(*in.Id))
+	}
+	if in.Mobile != nil {
+		query.Where(bsUserEnt.MobileEQ(*in.Mobile))
+	}
+	if in.InviteCode != nil {
+		query.Where(bsUserEnt.InviteCodeEQ(*in.InviteCode))
+	}
+	info, err := query.First(l.ctx)
 	if err != nil {
 		if ent.IsNotFound(err) {
 			return nil, nil
