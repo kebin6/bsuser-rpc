@@ -38,6 +38,30 @@ func (l *GetListLogic) GetList(in *bsuser.BsUserListReq) (*bsuser.BsUserListResp
 	if in.Status != nil {
 		predicates = append(predicates, bsUserEnt.StatusEQ(*pointy.GetStatusPointer(in.Status)))
 	}
+	if in.InvitedBy != nil {
+		predicates = append(predicates, bsUserEnt.InvitedBy(*in.InvitedBy))
+	}
+	if in.InviteCode != nil {
+		predicates = append(predicates, bsUserEnt.InviteCodeEQ(*in.InviteCode))
+	}
+	if in.MinTotalAmount != nil {
+		predicates = append(predicates, bsUserEnt.TotalAmountGTE(*in.MinTotalAmount))
+	}
+	if in.MaxTotalAmount != nil {
+		predicates = append(predicates, bsUserEnt.TotalAmountLTE(*in.MaxTotalAmount))
+	}
+	if in.MinValidAmount != nil {
+		predicates = append(predicates, bsUserEnt.ValidAmountGTE(*in.MinValidAmount))
+	}
+	if in.MaxValidAmount != nil {
+		predicates = append(predicates, bsUserEnt.ValidAmountLTE(*in.MaxValidAmount))
+	}
+	if in.StartTime != nil {
+		predicates = append(predicates, bsUserEnt.CreatedAtGTE(*pointy.GetTimeMilliPointer(in.StartTime)))
+	}
+	if in.EndTime != nil {
+		predicates = append(predicates, bsUserEnt.CreatedAtLTE(*pointy.GetTimeMilliPointer(in.EndTime)))
+	}
 
 	result, err := l.svcCtx.DB.Bsuser.Query().Where(predicates...).Page(l.ctx, in.Page, in.PageSize)
 

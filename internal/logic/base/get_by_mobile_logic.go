@@ -3,12 +3,10 @@ package base
 import (
 	"context"
 	bsUserEnt "github.com/kebin6/bsuser-rpc/ent/bsuser"
-	"github.com/kebin6/bsuser-rpc/internal/utils/dberrorhandler"
-	"github.com/suyuan32/simple-admin-common/utils/pointy"
-	"github.com/suyuan32/simple-admin-core/rpc/ent"
-
 	"github.com/kebin6/bsuser-rpc/internal/svc"
+	"github.com/kebin6/bsuser-rpc/internal/utils/dberrorhandler"
 	"github.com/kebin6/bsuser-rpc/types/bsuser"
+	"github.com/suyuan32/simple-admin-common/utils/pointy"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -30,9 +28,6 @@ func NewGetByMobileLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetBy
 func (l *GetByMobileLogic) GetByMobile(in *bsuser.MobileReq) (*bsuser.BsUserInfo, error) {
 	info, err := l.svcCtx.DB.Bsuser.Query().Where(bsUserEnt.MobileEQ(in.Mobile)).First(l.ctx)
 	if err != nil {
-		if ent.IsNotFound(err) {
-			return nil, nil
-		}
 		return nil, dberrorhandler.DefaultEntError(l.Logger, err, in)
 	}
 

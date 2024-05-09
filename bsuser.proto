@@ -65,6 +65,14 @@ message BsUserListReq {
   optional string name = 3;
   optional string mobile = 4;
   optional uint32 status = 5;
+  optional uint64 invited_by = 6;
+  optional string invite_code = 7;
+  optional double min_total_amount = 8;
+  optional double max_total_amount = 9;
+  optional double min_valid_amount = 10;
+  optional double max_valid_amount = 11;
+  optional int64 start_time = 12;
+  optional int64 end_time = 13;
 }
 
 message BsUserListResp {

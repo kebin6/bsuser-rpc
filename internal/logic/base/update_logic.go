@@ -28,8 +28,11 @@ func NewUpdateLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UpdateLogi
 }
 
 func (l *UpdateLogic) Update(in *bsuser.BsUserInfo) (*bsuser.BaseIDResp, error) {
-	query := l.svcCtx.DB.Bsuser.UpdateOneID(*in.Id).
-		SetNotNilStatus(pointy.GetStatusPointer(in.Status))
+	query := l.svcCtx.DB.Bsuser.UpdateOneID(*in.Id)
+
+	if in.Status != nil && *in.Status != 0 {
+		query.SetNotNilStatus(pointy.GetStatusPointer(in.Status))
+	}
 
 	if in.Pwd != nil && *in.Pwd != "" {
 		query.SetNotNilPwd(pointy.GetPointer(encrypt.BcryptEncrypt(*in.Pwd)))

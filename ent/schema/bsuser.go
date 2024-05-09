@@ -40,6 +40,7 @@ func (Bsuser) Indexes() []ent.Index {
 	return []ent.Index{
 		index.Fields("mobile").Unique().StorageKey("uniq_mobile"),
 		index.Fields("invite_code").Unique().StorageKey("uniq_invite_code"),
+		index.Fields("invited_by").StorageKey("idx_invited_by"),
 	}
 }
 

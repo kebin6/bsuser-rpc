@@ -2,7 +2,6 @@ package base
 
 import (
 	"context"
-	"github.com/kebin6/bsuser-rpc/ent"
 	bsUserEnt "github.com/kebin6/bsuser-rpc/ent/bsuser"
 	"github.com/kebin6/bsuser-rpc/internal/utils/dberrorhandler"
 	"github.com/suyuan32/simple-admin-common/utils/pointy"
@@ -40,9 +39,6 @@ func (l *GetOneLogic) GetOne(in *bsuser.BsUserInfo) (*bsuser.BsUserInfo, error) 
 	}
 	info, err := query.First(l.ctx)
 	if err != nil {
-		if ent.IsNotFound(err) {
-			return nil, nil
-		}
 		return nil, dberrorhandler.DefaultEntError(l.Logger, err, in)
 	}
 
